@@ -29,12 +29,15 @@ void main(){
       deleteCity(weatherData);
       break;
       case 5:
+      serchCity(weatherData);
       break;
       case 6:
       break;
       case 7:
+      showHotColdCity(weatherData);
       break;
       case 8:
+      showAverageTemperature(weatherData);
       break;
       case 9:
       print("Goodbye!");
@@ -117,5 +120,63 @@ void deleteCity(Map<String,dynamic>data){
   else{
     print("Invalid! This city is not found. Try again!");
   }
+}
 
+
+
+
+void serchCity(Map<String,dynamic>data){
+  if(data.isEmpty){
+    print("Nothing to add! Add first city and temperature!");
+  }
+  else{
+    print("Enter the city name to search:");
+    String? city=stdin.readLineSync();
+    if(data.containsKey(city)){
+      print("City name is $city and temperature is ${data[city]} °C");
+    }
+  }
+}
+
+
+
+
+void showHotColdCity(Map<String,dynamic>data){
+  if(data.isEmpty){
+    print("Nothing to add! Add first city and temperature!");
+
+  }
+  String hottestCity=data.keys.first;
+  String coldestCity=data.keys.first;
+  double maxTemperature=data[hottestCity];
+  double miniTemperature=data[coldestCity];
+  data.forEach((city,temp) { 
+    if(temp>maxTemperature){
+      hottestCity=city;
+      maxTemperature=temp;
+    }
+    if(temp<maxTemperature){
+      coldestCity=city;
+      miniTemperature=temp;
+    }
+    print("Hotest City: $hottestCity $maxTemperature °C ");
+    print("Hotest City: $coldestCity $miniTemperature °C ");
+
+  });
+}
+
+
+
+
+void showAverageTemperature(Map<String,dynamic>data){
+  if(data.isEmpty){
+        print("Nothing to add! Add first city and temperature!");
+  }
+
+  double total=0;
+  data.forEach((_, temp) {
+    total +=temp;
+  });
+  double average=total/data.length;
+  print("Average temperature: ${average.toStringAsFixed(2)}");
 }
