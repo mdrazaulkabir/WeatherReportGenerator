@@ -32,6 +32,7 @@ void main(){
       serchCity(weatherData);
       break;
       case 6:
+      filterByTemperature(weatherData);
       break;
       case 7:
       showHotColdCity(weatherData);
@@ -140,6 +141,48 @@ void serchCity(Map<String,dynamic>data){
 
 
 
+void filterByTemperature(Map<String,dynamic>data){
+  if(data.isEmpty){
+    print("Nothing to add! Add first city and temperature!");
+  }
+
+  else{
+    print('Enter the temperature threshold:');
+  double threshold=double.parse(stdin.readLineSync()??'');
+  if(threshold==null){
+    print("Invalid threshold temperature number!");
+  }
+
+  print("Choose 1 for all cities above $threshold °C Or choose 2 for below $threshold °C ");
+  String? option=stdin.readLineSync();
+
+  if(option=='1'){
+    data.forEach((key, value) {
+      if(value>threshold){
+        print("City :$key Temperature:$value °C");
+      }
+    });
+  }
+
+  else if(option=='2'){
+    data.forEach((city, temp) {
+      if(temp<threshold){
+        print("City :$city Temperature: $temp °C");
+      }
+
+      
+    });
+  }
+
+  else{
+    print("Wrong number choose. Try again!");
+  }
+
+
+ }
+
+}
+
 
 void showHotColdCity(Map<String,dynamic>data){
   if(data.isEmpty){
@@ -159,10 +202,10 @@ void showHotColdCity(Map<String,dynamic>data){
       coldestCity=city;
       miniTemperature=temp;
     }
-    print("Hotest City: $hottestCity $maxTemperature °C ");
-    print("Hotest City: $coldestCity $miniTemperature °C ");
-
   });
+
+   print("Hotest City: $hottestCity $maxTemperature °C ");
+  print("Hotest City: $coldestCity $miniTemperature °C ");
 }
 
 
