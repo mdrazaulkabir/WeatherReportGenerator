@@ -60,8 +60,10 @@ void addTemperature(Map<String,dynamic>data){
   print('Enter temperature in °C:');
   double? temp=double.tryParse(stdin.readLineSync()??'');
   if(city!=null&&city.isNotEmpty&& temp!=null){
-    data[city]=temp;
-    print("Added: $city $temp");
+    //both line will be same work
+    // data[city]=temp;                  ////Single entry
+    data.addAll({city:temp});            ////Single or multiple entries   vvi
+    print("Added city: $city\tTemperature is: $temp °C");
   }
   else{
     print("Invalid input:");
@@ -74,35 +76,42 @@ void viewTemperature(Map<String,dynamic>data){
   if(data.isEmpty){
     print("Nothing to add! Add first city and temperature!");
   }
-  print("City temperature!");
+  else{
+    print("City temperature!");
   data.forEach((key, value) {
-    print("City is : $key Temperature is : $value");
+    print("City is : $key\tTemperature is : $value °C");
   });
+  }
 }
 
 
 
 void updateTemperature(Map<String,dynamic>data){
    if(data.isEmpty){
-    print("Nothing to add! Add first city and temperature!");
+    print("Nothing to added! Add first city and temperature!");
   }
 
+  else{
   print("Enter city name to update:");
   String? city=stdin.readLineSync();
   if(data.containsKey(city)){
     print("Enter new temperature:");
     double? temp=double.tryParse(stdin.readLineSync()??'');
-    if(temp!=null){
-      data[city!]=temp;
-      print('City $city updated temperature is: $temp °C.');
-    }
-    else{
-      print('Invalid temperature. Try again!');
+      if(temp!=null){
+        //both line are same 
+        //data[city!]=temp;                 ////Single entry
+        data.addAll({city!:temp});          ////Single or multiple entries   vvi
+        print('City $city updated temperature is: $temp °C.');
       }
+      else{
+        print('Invalid temperature. Try again!');
+        }
   }
   else{
     print('Invalid! City name not found. Try again!');
     }
+  }
+
 }
 
 
@@ -112,7 +121,8 @@ void deleteCity(Map<String,dynamic>data){
     print("Nothing to add! Add first city and temperature!");
   }
   
-  print("Enter city name which want to delete:");
+ else{
+   print("Enter city name which want to delete:");
   String? city=stdin.readLineSync();
   if(city!=null&&city.isNotEmpty&&data.containsKey(city)){
     data.remove(city);
@@ -121,6 +131,7 @@ void deleteCity(Map<String,dynamic>data){
   else{
     print("Invalid! This city is not found. Try again!");
   }
+ }
 }
 
 
@@ -205,7 +216,7 @@ void showHotColdCity(Map<String,dynamic>data){
   });
 
    print("Hotest City: $hottestCity $maxTemperature °C ");
-  print("Hotest City: $coldestCity $miniTemperature °C ");
+   print("Hotest City: $coldestCity $miniTemperature °C ");
 }
 
 
