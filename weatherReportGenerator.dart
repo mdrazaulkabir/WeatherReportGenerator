@@ -122,15 +122,15 @@ void deleteCity(Map<String,dynamic>data){
   }
   
  else{
-   print("Enter city name which want to delete:");
-  String? city=stdin.readLineSync();
-  if(city!=null&&city.isNotEmpty&&data.containsKey(city)){
-    data.remove(city);
-    print("City $city is sucessfully remove or deleted!");
-  }
-  else{
-    print("Invalid! This city is not found. Try again!");
-  }
+    print("Enter city name which want to delete:");
+    String? city=stdin.readLineSync();
+    if(city!=null&&city.isNotEmpty&&data.containsKey(city)){
+      data.remove(city);
+      print("City $city is sucessfully remove or deleted!");
+    }
+    else{
+      print("Invalid! This city is not found. Try again!");
+    }
  }
 }
 
@@ -139,7 +139,7 @@ void deleteCity(Map<String,dynamic>data){
 
 void serchCity(Map<String,dynamic>data){
   if(data.isEmpty){
-    print("Nothing to add! Add first city and temperature!");
+    print("Nothing to added! Add first city and temperature!");
   }
   else{
     print("Enter the city name to search:");
@@ -159,36 +159,33 @@ void filterByTemperature(Map<String,dynamic>data){
 
   else{
     print('Enter the temperature threshold:');
-  double threshold=double.parse(stdin.readLineSync()??'');
-  if(threshold==null){
-    print("Invalid threshold temperature number!");
-  }
-
-  print("Choose 1 for all cities above $threshold °C Or choose 2 for below $threshold °C ");
-  String? option=stdin.readLineSync();
-
-  if(option=='1'){
-    data.forEach((key, value) {
-      if(value>threshold){
-        print("City :$key Temperature:$value °C");
-      }
-    });
-  }
-
-  else if(option=='2'){
-    data.forEach((city, temp) {
-      if(temp<threshold){
-        print("City :$city Temperature: $temp °C");
+    double threshold=double.parse(stdin.readLineSync()??'');
+      if(threshold==null){
+        print("Invalid threshold temperature number!");
       }
 
-      
-    });
-  }
+      else{
+        print("Choose 1 for all cities above $threshold °C Or choose 2 for below $threshold °C ");
+        String? option=stdin.readLineSync();
 
-  else{
-    print("Wrong number choose. Try again!");
-  }
-
+        if(option=='1'){
+          data.forEach((key, value) {
+            if(value>threshold){
+              print("City :$key Temperature:$value °C");
+            }
+          });
+        }
+        else if(option=='2'){
+          data.forEach((city, temp) {
+            if(temp<threshold){
+              print("City :$city Temperature: $temp °C");
+            }
+          });
+        }
+        else{
+          print("Wrong number choose. Try again!");
+        }
+      }
 
  }
 
@@ -200,23 +197,25 @@ void showHotColdCity(Map<String,dynamic>data){
     print("Nothing to add! Add first city and temperature!");
 
   }
-  String hottestCity=data.keys.first;
-  String coldestCity=data.keys.first;
-  double maxTemperature=data[hottestCity];
-  double miniTemperature=data[coldestCity];
-  data.forEach((city,temp) { 
-    if(temp>maxTemperature){
-      hottestCity=city;
-      maxTemperature=temp;
-    }
-    if(temp<maxTemperature){
-      coldestCity=city;
-      miniTemperature=temp;
-    }
-  });
-
-   print("Hotest City: $hottestCity $maxTemperature °C ");
-   print("Hotest City: $coldestCity $miniTemperature °C ");
+  else{
+    String hottestCity=data.keys.first;
+    String coldestCity=data.keys.first;
+    double maxTemperature=data[hottestCity];
+    double miniTemperature=data[coldestCity];
+    data.forEach((city,temp) { 
+      if(temp>maxTemperature){
+        hottestCity=city;
+        maxTemperature=temp;
+      }
+      if(temp<maxTemperature){
+        coldestCity=city;
+        miniTemperature=temp;
+      }
+      else{print("Invalid Input!");}
+    });
+    print("Hotest City: $hottestCity $maxTemperature °C ");
+    print("Hotest City: $coldestCity $miniTemperature °C ");
+  }
 }
 
 
@@ -227,10 +226,12 @@ void showAverageTemperature(Map<String,dynamic>data){
         print("Nothing to add! Add first city and temperature!");
   }
 
-  double total=0;
+ else{
+   double total=0;
   data.forEach((_, temp) {
     total +=temp;
   });
   double average=total/data.length;
   print("Average temperature: ${average.toStringAsFixed(2)}");
+ }
 }
